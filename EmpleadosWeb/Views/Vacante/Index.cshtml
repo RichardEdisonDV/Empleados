@@ -1,0 +1,77 @@
+﻿@model List<Application.DTOs.CustomDTOs.VacanteInfoDto>;
+@inject Application.Contracts.Services.HttpServices.ICookieService cookieService;
+@using Application.DTOs;
+@using Application.Statics.Enums
+@using Application.Wrappers;
+@using Application.Wrappers.Common;
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = $"Vacantes";
+    var userString = Context.Session.GetString("userinfo");
+    var userWrapper = string.IsNullOrEmpty(userString) ? null : JsonConvert.DeserializeObject<WrapperResponse<UsuarioDto>>(userString);
+    var user = userWrapper?.Data;
+}
+
+<div>
+    <h3>Lista de vacantes</h3>
+</div>
+
+
+<div class="bg-light mt-3">
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var vacante in Model)
+        {
+            <div class="card text-center vacante-card">
+                <div class="card-header">
+                    @($"{vacante.Empleador.Nombre} - {vacante.FechaCreacion}")
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">@vacante.Titulo</h5>
+                    <p class="card-text">@vacante.Descripcion</p>
+                    <p class="card-text">@vacante.Requisitos</p>
+
+                    @if (user != null && user.TipoUsuarioId == TipoUsuario.DEMANDANTE)
+                    {
+                        if (vacante.Demandante is not null && vacante.Demandante.Any() && vacante.Demandante.Select(x => x.UsuarioId).Contains(user.Id))
+                        {
+                            <form method="post" asp-controller="Vacante" asp-action="NoAplicar">
+                                <input type="hidden" name="VacanteId" value="@vacante.Id" />
+                                <input type="hidden" name="DemandanteId" value="@user.Id" />
+                                <button type="submit" class="btn btn-danger">Quitar aplicación</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form method="post" asp-controller="Vacante" asp-action="Aplicar">
+                                <input type="hidden" name="VacanteId" value="@vacante.Id" />
+                                <input type="hidden" name="DemandanteId" value="@user.Id" />
+                                <button type="submit" class="btn btn-primary">Aplicar</button>
+                            </form>
+                        }
+
+                    }
+                    else
+                    {
+                        <div class="bg-light w-auto">
+                            <p class="text-center">Para aplicar a esta vacante, por favor inicie sesión o registrese como demandante</p>
+                        </div>
+                    }
+                </div>
+                <div class="card-footer text-muted">
+                    <p><strong>Industria: </strong>@(vacante.Empleador.Industria.Descripcion)</p>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <p>No hay vacantes publicadas</p>
+    }
+</div>
+
+
+
+
+

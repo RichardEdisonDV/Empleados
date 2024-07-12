@@ -1,0 +1,73 @@
+﻿@using Application.DTOs;
+@{
+    ViewData["Title"] = "Empleados.com";
+    var tipoUsuarios = ViewBag.TipoUsuarios as List<TipoUsuarioDto>;
+    var tipoUsuariosSelect = tipoUsuarios?.Select(x => new SelectListItem { Text = x.Descripcion, Value = x.Id.ToString() });
+}
+
+<div class="text-center">
+    <h1 class="display-4">Empleados.com</h1>
+    <p>La importancia del talento humano</p>
+</div>
+
+<div class="auth-container d-flex">
+
+    <div class="form-container auth-login col-6 justify-content-center">
+        <div class="w-100 p-4">
+            <h4>Iniciar sesión</h4>
+            <p>Ingresa las credenciales para iniciar sesión</p>
+            <form method="post" asp-controller="Auth" asp-action="Login">
+                <div class="form-control">
+                    <label for="Email">Email</label>
+                    <input type="email" name="Email" class="form-control" required placeholder="correo@dominio.com" />
+                </div>
+
+                <div class="form-control">
+                    <label for="Password">Password</label>
+                    <input type="password" name="Password" class="form-control" required placeholder="**********************" />
+                </div>
+
+                <div class="form-control">
+                    <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="form-container auth-register col-6 justify-content-center">
+        <div class="w-100 p-4">
+            <h4>Regístrate</h4>
+            <p>Diligencia el formulario para poder registrarte</p>
+
+            <form method="post" asp-controller="Auth" asp-action="Register">
+
+                <div class="form-control">
+                    <label for="Nombre">Nombre:</label>
+                    <input type="text" name="Nombre" class="form-control" required placeholder="John Doe" />
+                </div>
+
+                <div class="form-control">
+                    <label for="Email">Email:</label>
+                    <input type="email" name="Email" class="form-control" required placeholder="correo@dominio.com" />
+                </div>
+
+                <div class="form-control">
+                    <label for="Password">Password:</label>
+                    <input type="password" name="Password" class="form-control" required placeholder="**********************" />
+                </div>
+
+                <div class="form-control">
+                    <label for="TipoUsuarioId">Tipo de Usuario: </label>
+                    <select name="TipoUsuarioId" asp-items="@tipoUsuariosSelect" class="form-control" required>
+                    </select>
+                </div>
+
+                <div class="form-control">
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

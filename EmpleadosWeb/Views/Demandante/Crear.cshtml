@@ -1,0 +1,54 @@
+﻿@using Application.DTOs;
+@using Application.Statics.Enums
+@using Application.Wrappers;
+@using Newtonsoft.Json;
+@{
+    ViewData["Title"] = $"Crear perfil";
+    var nivelesEducativos = ViewBag.NivelesEducativos as List<NivelEducativoDto>;
+    var nivelesEducativosSelect = nivelesEducativos?.Select(x => new SelectListItem
+            {
+                Text = x.Descripcion,
+                Value = x.Id.ToString(),
+            });
+    var user = ViewBag.User as UsuarioDto;
+}
+@if (user is not null && user.TipoUsuarioId == TipoUsuario.DEMANDANTE)
+{
+    <div>
+        <h3>Información Básica de <strong>@(user.Nombre)</strong></h3>
+        <p><strong>Email:</strong> @user.Email</p>
+
+        <form method="post" asp-controller="Demandante" asp-action="Crear">
+            <input type="hidden" name="UsuarioId" value="@user.Id" />
+            <div class="form-control">
+                <label for="FechaNacimiento">Fecha de Nacimiento: </label>
+                <input type="date" name="FechaNacimiento" class="form-control" required />
+            </div>
+            <div class="form-control">
+                <label for="Movil">Móvil:</label>
+                <input type="tel" name="Movil" class="form-control" required placeholder="+57 9876543" />
+            </div>
+            <div class="form-control">
+                <label for="NivelEducativoId">Nivel Educativo:</label>
+                <select name="NivelEducativoId" asp-items="nivelesEducativosSelect" class="form-control" required>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="Perfil">Perfil:</label>
+                <textarea name="Perfil" class="form-control" required placeholder="Descripción de perfil">
+                            </textarea>
+            </div>
+            <div class="form-control">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-warning">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <partial name="_LayoutForbidden" />
+}
+
+
+

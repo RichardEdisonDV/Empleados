@@ -1,0 +1,52 @@
+﻿@model Application.DTOs.CustomDTOs.EmpleadorProfileDto;
+@using Application.DTOs;
+@{
+    ViewData["Title"] = $"Perfil - {Model.Nombre}";
+}
+
+<div>
+    <h3>Información Básica</h3>
+    <p><strong>Nombre:</strong> @Model.Nombre</p>
+    <p><strong>Perfil:</strong> @Model.Perfil</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Cantidad de Empleados:</strong> @Model.CantidadEmpleados</p>
+    <p><strong>Industria:</strong> @(Model.Industria?.Descripcion ?? "N/A")</p>
+    <p><strong>Localizacion:</strong> @($"{Model.Localizacion?.Descripcion} - {Model.Localizacion?.Direccion} - {Model.Localizacion?.Ubicacion}" ?? "N/A")</p>
+    <div>
+        <a href="@Url.Action("Editar", "Empleador", new { id = Model.UsuarioId })" class="btn btn-primary">Editar información básica</a>
+    </div>
+</div>
+
+
+<div class="bg-light mt-3">
+    <h3>Vacantes</h3>
+    <a href="@Url.Action("CrearVacante", "Empleador", new { id = Model.UsuarioId })" class="btn btn-success">Agregar Vacante</a>
+    @if (Model.Vacante != null && Model.Vacante.Any())
+    {
+        @foreach (var vacante in Model.Vacante)
+        {
+            <div class="experiencia-container my-2 p-2">
+                <h4>@vacante.Titulo</h4>
+                <p><strong>Descripción de la Vacante:</strong> @vacante.Descripcion</p>
+                <p><strong>Requisitos:</strong> @vacante.Requisitos</p>
+                <p><strong>Fecha Creación:</strong> @vacante.FechaCreacion.ToString("dd/MM/yyyy")</p>
+                <div>
+                    <form method="post" asp-controller="Empleador" asp-action="EliminarVacante">
+                        <input type="hidden" name="empleadorId" value="@Model.UsuarioId" />
+                        <input type="hidden" name="vacanteId" value="@vacante.Id" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <p>No hay vacantes registradas</p>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,50 @@
+﻿@using Application.DTOs;
+@using Application.Statics.Enums
+@{
+    ViewData["Title"] = $"Crear perfil";
+    var industrias = ViewBag.Industrias as List<IndustriaDto>;
+    var industriasSelect = industrias?.Select(x => new SelectListItem
+            {
+                Text = x.Descripcion,
+                Value = x.Id.ToString(),
+            });
+    var user = ViewBag.User as UsuarioDto;
+}
+@if (user is not null && user.TipoUsuarioId == TipoUsuario.EMPLEADOR)
+{
+    <div>
+        <h3>Información Básica de <strong>@(user.Nombre)</strong></h3>
+
+        <form method="post" asp-controller="Empleador" asp-action="Crear">
+            <input type="hidden" name="UsuarioId" value="@user.Id" />
+            <div class="form-control">
+                <label for="CantidadEmpleados">Cantidad de empleados: </label>
+                <input type="text" name="CantidadEmpleados" class="form-control" required  pattern="\d*" />
+            </div>
+
+            <div class="form-control">
+                <label for="LocalizacionId">Localizacion:</label>
+                <select name="IndustriaId" asp-items="industriasSelect" class="form-control" required>
+                </select>
+            </div>
+
+            <div class="form-control">
+                <label for="IndustriaId">Industria:</label>
+                <select name="IndustriaId" asp-items="industriasSelect" class="form-control" required>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="Perfil">Perfil:</label>
+                <textarea name="Perfil" class="form-control" required placeholder="Descripción de perfil"></textarea>
+            </div>
+            <div class="form-control">
+                <a href="@Url.Action("Index", "Home")" class="btn btn-warning">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+}
+else
+{
+    <partial name="_LayoutForbidden" />
+}

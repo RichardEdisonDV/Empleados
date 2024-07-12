@@ -1,0 +1,53 @@
+﻿@model Application.DTOs.CustomDTOs.EmpleadorProfileDto;
+@using Application.DTOs;
+@using Application.Statics.Enums
+@{
+    ViewData["Title"] = $"Crear Vacante - {Model.Nombre}";
+    var user = ViewBag.User as UsuarioDto;
+}
+
+@if (user is not null && user.TipoUsuarioId == TipoUsuario.EMPLEADOR)
+{
+    <div>
+        <h3>Agregar vacante</h3>
+        <p><strong>Nombre:</strong> @Model.Nombre</p>
+    </div>
+
+
+    <div class="bg-light">
+        <form method="post" asp-controller="Empleador" asp-action="CrearVacante">
+            <input type="hidden" name="EmpleadorId" value="@Model.UsuarioId" />
+            <div class="form-control">
+                <label for="Titulo">Título:</label>
+                <input type="text" name="Titulo" class="form-control" required placeholder="Auxiliar de manipulación de metales" />
+            </div>
+
+            <div class="form-control">
+                <label for="Descripcion">Descripción:</label>
+                <input type="text" name="Descripcion" class="form-control" required placeholder="Se necesita auxiliar..." />
+            </div>
+
+            <div class="form-control">
+                <label for="Requisitos">Requisitos:</label>
+                <input type="text" name="Requisitos" class="form-control" required placeholder="Excelente disposición, buena presentación..." />
+            </div>
+
+            <div class="form-control">
+                <a href="@Url.Action("Profile", "Empleador", new { id = Model.UsuarioId })" class="btn btn-warning">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Agregar Vacante</button>
+            </div>
+        </form>
+
+    </div>
+}
+else
+{
+    <partial name="_LayoutForbidden" />
+}
+
+
+
+
+
+
+

@@ -1,0 +1,62 @@
+﻿@model Application.DTOs.CustomDTOs.DemandanteProfileDto;
+@using Application.DTOs;
+@using Application.Statics.Enums
+@{
+    ViewData["Title"] = $"Agregar experiencia laboral - {Model.Nombre}";
+    var user = ViewBag.User as UsuarioDto;
+}
+
+@if(user is not null && user.TipoUsuarioId == TipoUsuario.DEMANDANTE)
+{
+    <div>
+        <h3>Agregar experiencia laboral</h3>
+        <p><strong>Nombre:</strong> @Model.Nombre</p>
+    </div>
+
+
+    <div class="bg-light">
+        <form method="post" asp-controller="Demandante" asp-action="CrearExperiencia">
+            <input type="hidden" name="DemandanteId" value="@Model.UsuarioId" />
+            <div class="form-control">
+                <label for="JefeDirecto">Jefe Directo:</label>
+                <input type="text" name="JefeDirecto" class="form-control" required placeholder="Jack Doe" />
+            </div>
+
+            <div class="form-control">
+                <label for="TelefonoContacto">Teléfono Contacto:</label>
+                <input type="tel" name="TelefonoContacto" class="form-control" required placeholder="+57 9876543" />
+            </div>
+
+            <div class="form-control">
+                <label for="DescripcionLabor">Descripción de Labor:</label>
+                <input type="text" name="DescripcionLabor" class="form-control" required placeholder="Encargado de ..." />
+            </div>
+
+            <div class="form-control">
+                <label for="FechaInicio">Fecha Inicial:</label>
+                <input type="date" name="FechaInicio" class="form-control" required />
+            </div>
+
+            <div class="form-control">
+                <label for="FechaFin">Fecha Final:</label>
+                <input type="date" name="FechaFin" class="form-control" required />
+            </div>
+
+            <div class="form-control">
+                <a href="@Url.Action("Profile", "Demandante", new { id = Model.UsuarioId })" class="btn btn-warning">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Agregar Experiencia</button>
+            </div>
+        </form>
+
+    </div>
+}
+else
+{
+    <partial name="_LayoutForbidden" />
+}
+
+
+
+
+
+

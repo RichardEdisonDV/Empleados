@@ -1,0 +1,103 @@
+SET IDENTITY_INSERT [dbo].[TIPO_USUARIO] ON 
+GO
+INSERT [dbo].[TIPO_USUARIO] ([ID], [DESCRIPCION]) VALUES (1, N'Demandante')
+GO
+INSERT [dbo].[TIPO_USUARIO] ([ID], [DESCRIPCION]) VALUES (2, N'Empleador')
+GO
+SET IDENTITY_INSERT [dbo].[TIPO_USUARIO] OFF
+GO
+SET IDENTITY_INSERT [dbo].[USUARIO] ON 
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (1, N'Edison Cordoba', N'edison@gmail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 1)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (2, N'Bill Gates', N'bill@microsoft.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 2)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (3, N'Alexis Cordoba', N'alexis@gmail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 1)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (4, N'Gloria Morillo', N'morillo@gmail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 1)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (5, N'Gloria Morillo', N'glro@mail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 1)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (6, N'Hernando Morillo', N'hernando@mail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 1)
+GO
+INSERT [dbo].[USUARIO] ([ID], [NOMBRE], [EMAIL], [PASSWORD], [TIPO_USUARIO_ID]) VALUES (9, N'OL Software S.A.S', N'olsoftware@mail.com', N'15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 2)
+GO
+SET IDENTITY_INSERT [dbo].[USUARIO] OFF
+GO
+SET IDENTITY_INSERT [dbo].[NIVEL_EDUCATIVO] ON 
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (1, N'Básica primaria')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (2, N'Bachillerato')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (3, N'Técnico')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (4, N'Técnólogo')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (5, N'Profesional')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (6, N'Especialización')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (7, N'Maestría')
+GO
+INSERT [dbo].[NIVEL_EDUCATIVO] ([ID], [DESCRIPCION]) VALUES (8, N'Doctorado')
+GO
+SET IDENTITY_INSERT [dbo].[NIVEL_EDUCATIVO] OFF
+GO
+INSERT [dbo].[DEMANDANTE] ([USUARIO_ID], [FECHA_NACIMIENTO], [MOVIL], [NIVEL_EDUCATIVO_ID], [PERFIL]) VALUES (1, CAST(N'1985-07-05' AS Date), N'+57 3125685447', 5, N'                                                    Ingeniero de sistemas, desarrollador .NET con conocimientos en MVC, API REST y desarrollo en azure, Scrum Master Institute
+            
+            
+                        ')
+GO
+INSERT [dbo].[DEMANDANTE] ([USUARIO_ID], [FECHA_NACIMIENTO], [MOVIL], [NIVEL_EDUCATIVO_ID], [PERFIL]) VALUES (3, CAST(N'1989-06-19' AS Date), N'+57 3122563852', 5, N'Senior software developer .Net C#')
+GO
+SET IDENTITY_INSERT [dbo].[LOCALIZACION] ON 
+GO
+INSERT [dbo].[LOCALIZACION] ([ID], [DESCRIPCION], [DIRECCION], [UBICACION]) VALUES (1, N'La 14 de Calima', N'Calle 70 # 1-00', N'Cali')
+GO
+INSERT [dbo].[LOCALIZACION] ([ID], [DESCRIPCION], [DIRECCION], [UBICACION]) VALUES (2, N'Jardin Plaza', N'Carrera 100 # 80-01', N'Cali')
+GO
+SET IDENTITY_INSERT [dbo].[LOCALIZACION] OFF
+GO
+SET IDENTITY_INSERT [dbo].[INDUSTRIA] ON 
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (1, N'Software')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (2, N'Transporte')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (3, N'Música')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (4, N'Salud')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (5, N'Deporte')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (6, N'Alimentación')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (7, N'Hoteles')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (8, N'Turismo')
+GO
+INSERT [dbo].[INDUSTRIA] ([ID], [DESCRIPCION]) VALUES (9, N'Restaurantes')
+GO
+SET IDENTITY_INSERT [dbo].[INDUSTRIA] OFF
+GO
+INSERT [dbo].[EMPLEADOR] ([USUARIO_ID], [LOCALIZACION_ID], [INDUSTRIA_ID], [CANTIDAD_EMPLEADOS], [PERFIL]) VALUES (2, 1, 1, 1205, N'                                    Empresa número 1 en creación de sistemas operativos y aplicaciones TI por todo el mundo mundial
+            
+                ')
+GO
+SET IDENTITY_INSERT [dbo].[EXPERIENCIA_LABORAL] ON 
+GO
+INSERT [dbo].[EXPERIENCIA_LABORAL] ([ID], [DEMANDANTE_ID], [JEFE_DIRECTO], [TELEFONO_CONTACTO], [DESCRIPCION_LABOL], [FECHA_INICIO], [FECHA_FIN]) VALUES (1, 1, N'Orlando Lara', N'+57 3157894562', N'Desarrollo MVC de BIC 2.0 para Celsia Colombia', CAST(N'2019-04-01' AS Date), CAST(N'2019-12-31' AS Date))
+GO
+INSERT [dbo].[EXPERIENCIA_LABORAL] ([ID], [DEMANDANTE_ID], [JEFE_DIRECTO], [TELEFONO_CONTACTO], [DESCRIPCION_LABOL], [FECHA_INICIO], [FECHA_FIN]) VALUES (2, 1, N'Soledad Ramirez', N'+51 1235558454', N'Desarrollo de servicios de facturación electrónica', CAST(N'2018-02-01' AS Date), CAST(N'2019-03-31' AS Date))
+GO
+SET IDENTITY_INSERT [dbo].[EXPERIENCIA_LABORAL] OFF
+GO
+SET IDENTITY_INSERT [dbo].[VACANTE] ON 
+GO
+INSERT [dbo].[VACANTE] ([ID], [EMPLEADOR_ID], [FECHA_CREACION], [DESCRIPCION], [TITULO], [REQUISITOS]) VALUES (2, 2, CAST(N'2024-07-11T13:08:43.460' AS DateTime), N'Se necesita desarrollador senior con fuerte manejo de TypeScript', N'Senior Software TypeScript Developer', N'5 años de experiencia o más, ingles B2 o C1')
+GO
+INSERT [dbo].[VACANTE] ([ID], [EMPLEADOR_ID], [FECHA_CREACION], [DESCRIPCION], [TITULO], [REQUISITOS]) VALUES (4, 2, CAST(N'2024-07-11T19:21:25.230' AS DateTime), N'Se requiere desarrollador Azure', N'Azure Developer', N'5 años de experiencia o más, ingles B2 o C1')
+GO
+SET IDENTITY_INSERT [dbo].[VACANTE] OFF
+GO

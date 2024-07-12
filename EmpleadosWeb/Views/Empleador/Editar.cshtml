@@ -1,0 +1,51 @@
+﻿@model Application.DTOs.CustomDTOs.EmpleadorProfileDto;
+@using Application.DTOs;
+@using Application.Statics.Enums
+@{
+    ViewData["Title"] = $"Editar perfil - {Model.Nombre}";
+    var industrias = ViewBag.Industrias as List<IndustriaDto>;
+    var industriasSelect = industrias?.Select(x => new SelectListItem
+            {
+                Text = x.Descripcion,
+                Value = x.Id.ToString(),
+                Selected = x.Id == (Model.Industria?.Id ?? 0)
+            });
+    var user = ViewBag.User as UsuarioDto;
+}
+
+@if (user is not null && user.TipoUsuarioId == TipoUsuario.EMPLEADOR)
+{
+    <div>
+        <h3>Editar Información Básica de <strong>@(Model.Nombre)</strong></h3>
+        <p><strong>Localizacion:</strong> @($"{Model.Localizacion?.Descripcion} - {Model.Localizacion?.Direccion} - {Model.Localizacion?.Ubicacion}" ?? "N/A")</p>
+
+        <form method="post" asp-controller="Empleador" asp-action="Editar">
+            <input type="hidden" name="UsuarioId" value="@Model.UsuarioId" />
+            <input type="hidden" name="LocalizacionId" value="@Model.Localizacion!.Id" />
+            <div class="form-control">
+                <label for="CantidadEmpleados">Cantidad de empleados: </label>
+                <input type="text" name="CantidadEmpleados" class="form-control" required value="@Model.CantidadEmpleados" pattern="\d*" />
+            </div>
+            <div class="form-control">
+                <label for="IndustriaId">Industria:</label>
+                <select name="IndustriaId" asp-items="industriasSelect" class="form-control" required>
+                </select>
+            </div>
+            <div class="form-control">
+                <label for="Perfil">Perfil:</label>
+                <textarea name="Perfil" class="form-control" required placeholder="Descripción de perfil">
+                    @Model.Perfil
+                </textarea>
+            </div>
+            <div class="form-control">
+                <a href="@Url.Action("Profile", "Empleador", new { id = Model.UsuarioId })" class="btn btn-warning">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Actualizar Información</button>
+            </div>
+        </form>
+    </div>
+
+}
+else
+{
+    <partial name="_LayoutForbidden" />
+}
